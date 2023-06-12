@@ -1012,21 +1012,21 @@ AT+RECV=1
 #采集数据前，对外供电12V，供电3000ms，待设备初始化完成后，再采集数据
 AT+OUTPOWER0=12V,3000
 +OUTPOWER0=OK
-AT+OUTPOWER1?
-+OUTPOWER1=12V,3000
+AT+OUTPOWER0?
++OUTPOWER0=12V,3000
 
 #12V供电电路一直对外供电
-AT+OUTPOWER1=12V,0
-OK
+AT+OUTPOWER0=12V,0
++OUTPOWER0=OK
 
 #12V供电电路从不对外供电
 AT+OUTPOWER1=12V,-1
-OK
++OUTPOWER0=OK
 ```
 
 --------------------
 
-###  2. 入库与工作模式（名字不好）
+###  2. 入库模式与工作模式
 
 用户刚刚拿到设备时，设备处于睡眠模式，保持最低功耗，需要用户手动唤醒
 用户使用手机或PC软件配置后，设备将自动被唤醒
@@ -1034,10 +1034,10 @@ OK
 <table>
     <tr>
         <td rowspan="2">AT+POWERON</td>    
-    	 <td>AT+POWERON? 查询当前设备是否处于入库状态<br>+POWERON=0 入库状态<br>+POWERON=1 出库状态</td> 
+    	 <td>AT+POWERON? 查询当前设备是否处于入库模式<br>+POWERON=0 入库模式<br>+POWERON=1 工作模式</td> 
     </tr>
     <tr>
-        <td>AT+POWERON=<0/1> <br>0 表示入库状态，处于低功耗，设备不工作<br>1 表示设备开始工作</td> 
+        <td>AT+POWERON=<0/1> <br>0 表示入库模式，处于低功耗，设备不工作<br>1 表示设备开始工作</td> 
     </tr>
 </table>
 
