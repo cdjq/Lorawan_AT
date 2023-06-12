@@ -1,5 +1,6 @@
 # AT指令表
 
+AT质量支持3个通过 TTL-UART、USB-UART、Lorawan Port（20）
 
 所有AT指令都以\r\n结尾
 
@@ -105,9 +106,10 @@ AT+PRODUCT?
 <table>
     <tr>
         <td>AT+HWVERSION</td>    
-    	 <td>AT+HWVERSION? 查询产品名称<br>+HWVERSION=$ltversion$lt</td> 
+    	 <td>AT+HWVERSION? 查询产品名称<br>+HWVERSION=&ltversion&gt</td> 
     </tr>
 </table>
+
 
 
 举例
@@ -149,9 +151,10 @@ AT+SWVERSION=V0.1.1
 <table>
     <tr>
         <td>AT+SN</td>    
-    	 <td>AT+SN? 查询序列号<br>+SN=<sn></td> 
+    	 <td>AT+SN? 查询序列号<br>+SN=&ltsn&gt</td> 
     </tr>
 </table>
+
 
 
 举例
@@ -331,12 +334,13 @@ AT+DEVADDR?
 <table>
     <tr>
         <td rowspan="2">AT+NWKSKEY</td>    
-    	 <td>AT+NWKSKEY? 查询当前的NWKSKEY<br>+NWKSKEY=&lt16 bytes&lt </td> 
+    	 <td>AT+NWKSKEY? 查询当前的NWKSKEY<br>+NWKSKEY=&lt16 bytes&gt </td> 
     </tr>
     <tr>
         <td>AT+NWKSKEY=&lt16 bytes&gt 设置设备的NWKSKEY</td> 
     </tr>
 </table>
+
 
 
 举例
@@ -412,12 +416,13 @@ AT+APPSKEY?
 <table>
     <tr>
         <td rowspan="2">AT+NETID</td>    
-    	 <td>AT+NETID? 查询当前的NETID<br>+NETID=&lt3 byte&gt </td> 
+    	 <td>AT+NETID? 查询当前的NETID<br>+NETID=&lt3 bytes&gt </td> 
     </tr>
     <tr>
         <td>AT+NETID=&lt3 bytes&gt 设置设备的NETID</td> 
     </tr>
 </table>
+
 
 
 举例
@@ -471,12 +476,13 @@ AT+JOIN?
 <table>
     <tr>
         <td rowspan="2">AT+PORT</td>    
-    	 <td>AT+PORT? 查询是否入网<br>+PORT=2 使用端口2</td> 
+    	 <td>AT+PORT? 查询Lorawan通信端口<br>+PORT=2 使用端口2</td> 
     </tr>
     <tr>
-        <td>AT+PORT=<1 byte> 这只通信端口</td> 
+        <td>AT+PORT=<1 byte> 设置Lorawan通信端口</td> 
     </tr>
 </table>
+
 
 
 举例
@@ -502,9 +508,10 @@ AT+PORT?
 <table>
     <tr>
         <td rowspan="2">AT+FREQS</td>   
-    	 <td>AT+FREQS? 返回+FREQS=&ltfres list&gt 返回可用的频点</td> 
+    	 <td>AT+FREQS? 返回+FREQS=&ltfreqs list&gt 返回可用的频点</td> 
     </tr>
 </table>
+
 
 
 举例
@@ -512,6 +519,7 @@ AT+PORT?
 ```
 AT+FREQS?
 +FREQS=868000000,868000200,868000400,868000600,868000800,868001000,868001200,868001400
+
 AT+FREQS=868000000,868000200,868000400,868000600,868000800,868001000,868001200,868001400
 +FREQS=FAIL
 ```
@@ -521,6 +529,10 @@ AT+FREQS=868000000,868000200,868000400,868000600,868000800,868001000,868001200,8
 ### 12. 地区（只可查询）
 
 当前支持CN470 US915 EU868
+
+CN470的节点不支持切换到其他区域
+
+US915 EU868的节点支持互相切换Region
 
 <table>
     <tr>
@@ -541,6 +553,7 @@ AT+REGION?
 +REGION=CN470
 AT+REGION=EU868
 +REGION=FAIL
+
 #如果EU868或US915节点
 AT+REGION?
 +REGION=US915
@@ -558,6 +571,7 @@ CN470 范围1-12， 默认为11
 US915 范围1-9，   默认为8
 EU868没有subband
 这里给出频段表****
+
 <table>
     <tr>
         <td rowspan="2">AT+SUBBAND</td>    
@@ -604,8 +618,10 @@ AT+SUBBAND?
 ```
 AT+ANTENNAGAIN?
 +ANTENNAGAIN=2.15
+
 AT+ANTENNAGAIN=3.5
 +ANTENNAGAIN=OK
+
 AT+ANTENNAGAIN?
 +ANTENNAGAIN=3.5
 ```
@@ -634,8 +650,10 @@ US915 范围0-30 默认值 冯立
 ```
 AT+EIRP?
 +EIRP=19
+
 AT+EIRP=16
 +EIRP=OK
+
 AT+EIRP?
 +EIRP=16
 ```
@@ -705,7 +723,7 @@ AT+SNR?
 ### 18. 信号强度
 查询上一次接收到的数据帧的信号强度，为负数，值越靠近0，信号强度越好
 
-单位是DBm（王辉）
+单位是dbm
 
 <table>
     <tr>
@@ -720,10 +738,11 @@ AT+SNR?
 
 举例
 
-```
+```python
 #还没接收过数据
 AT+RSSI?
 +RSSI=NULL
+
 #已经接收过数据
 AT+RSSI?
 +RSSI=-20
@@ -750,10 +769,13 @@ UNCONFIRMED包，不需要网关回复ACK信号，传输特定包数量后，需
 
 举例
 
-```
+```python
 AT+UPLINKTYPE?
 +UPLINKTYPE=CONFIRMED
+
 AT+UPLINKTYPE=UNCONFIRMED
++UPLINKTYPE=OK
+
 AT+UPLINKTYPE?
 +UPLINKTYPE=UNCONFIRMED
 ```
@@ -763,13 +785,18 @@ AT+UPLINKTYPE?
 ### 20. 上发数据
 
 发送完成后才会传输返回值
-ASCII
-HEX
+根据TEXTTYPE类型（ASCII或HEX），组织上发的数据
+
+发送到队列中：+SENDLORA=QUEUE
+
+发送成功：+SENDLORA=OK
+
+发送失败：+SENDLORA=FAIL  
 
 <table>
     <tr>
         <td rowspan="2">AT+SEND</td>    
-    	 <td>AT+SEND? 没必要查询</td> 
+    	 <td>AT+SEND? 查询数据包状态<br>+SEND=QUEUE 已经添加到发送队列，还未发送<br>+SEND=OK 发送成功<br>+SEND=FAIL 发送失败</td> 
     </tr>
     <tr>
         <td>AT+SEND=ABCDEFG 发送数据ABCDEFG到网关</td> 
@@ -777,18 +804,27 @@ HEX
 </table>
 
 
+
 举例
 
 ```
 #ASCII模式下
 AT+SEND=ABCDEFG
++SEND=QUEUE
+
+AT+SEND?
++SEND=QUEUE
+
+#发送完成后返回
 +SEND=OK
-+SEND=FAIL
+
 
 #HEX模式下
 AT+SEND=3355AABB
-+SEND=OK
++SEND=QUEUE
++SEND=FAIL
 ```
+
 -------------------------
 
 ### 21. 重传次数
@@ -808,8 +844,10 @@ AT+SEND=3355AABB
 ```
 AT+NBTRIALS?
 +NBTRIALS=3
+
 AT+NBTRIALS=2
 +NBTRIALS=OK
+
 AT+NBTRIALS?
 +NBTRIALS=2
 ```
@@ -826,9 +864,10 @@ AT+NBTRIALS?
     	 <td>AT+CLASS? 查询当前设备类型<br>+CLASS=A A类设备<br>+CLASS=C C类设备</td> 
     </tr>
     <tr>
-        <td>AT+CLASS=A 设置设备未A类设备</td> 
+        <td>AT+CLASS=A 设置设备为A类设备</td> 
     </tr>
 </table>
+
 
 
 举例
@@ -836,10 +875,13 @@ AT+NBTRIALS?
 ```
 AT+CLASS?
 +CLASS=A
+
 AT+CLASS=C
-OK
++CLASS=OK
+
 AT+CLASS=B
 +CLASS=FAIL
+
 AT+CLASS?
 +CLASS=C
 ```
@@ -850,6 +892,7 @@ AT+CLASS?
 
 默认值为成都地理位置信息 104.06E,30.67N,500
 海拔支持负数
+
 <table>
     <tr>
         <td rowspan="2">AT+COORD</td>    
@@ -915,9 +958,10 @@ AT+SEND=58595A
     	 <td>AT+TEXTTYPE? 查询收发数据类型<br>+TEXTTYPE=HEX HEX方式发送数据<br>+TEXTTYPE=ASCII ASCII方式收发数据</td> 
     </tr>
     <tr>
-        <td>AT+TEXTTYPE=<type> 设置收发数据类型，type可以是HEX ASCII</td> 
+        <td>AT+TEXTTYPE=&lttype&gt 设置收发数据类型，type可以是HEX ASCII</td> 
     </tr>
 </table>
+
 
 
 
@@ -926,8 +970,10 @@ AT+SEND=58595A
 ```
 AT+TEXTTYPE?
 +TEXT=ASCII
+
 AT+TEXTTYPE=HEX
 +TEXTTYPE=OK
+
 AT+TEXTTYPE?
 +TEXTTYPE=HEX
 ```
@@ -939,23 +985,18 @@ AT+TEXTTYPE?
 Lorawan接收的数据转发到串口
 格式为+RECV:U(C):D(E):Port:RSSI:SNR:Data
 
-当数据包没有数据段时，Port会被加1000
-+RECV=U:D:2:-30:8:
-+RECV=U:E:2:-30:2:crc_err
-当数据包有数据段时
-AT+TEXT=HEX    
-+RECV=C:D:2:-30:2:61626364
-AT+TEXT=ASCII     
-+RECV=C:D:2:-30:2:hello
+
+
 <table>
     <tr>
         <td rowspan="2">AT+RECV</td>    
     	 <td>AT+RECV? 查询当前设备ADR是否打开<br>+RECV=1 ADR打开<br>+RECV=0 ADR关闭</td> 
     </tr>
     <tr>
-        <td>AT+RECV=1 lorawan接收数据打印到串口<br>AT+RECV=0 Lorawan接收到的数据不打印到串口</td> 
+        <td>AT+RECV=1 lorawan接收数据打印到串口<br>AT+RECV=0 Lorawan接收到的数据不打印到串口<br>+RECV:U(C):D(E):Port:RSSI:SNR:Data U 表示UNCONFIRMED包，C 表示CONFIRMED包<br>D 表示数据包，E表示出错包<br>Port 表示接收端口<br>RSSI 表示接收包的信号强度<br>SNR 表示接收包的信噪比<br>Data 表示TEXTTYPE类型的数据</td> 
     </tr>
 </table>
+
 
 
 
@@ -1143,20 +1184,23 @@ AT+ADC2?
 
 ### 5. IOOUT引脚输出策略
 
-设备有2路IO，可以配置为IO输出，输出电平为3.3V
-支持电平序列对，最多10对
+* AT设置时执行，Loop中不执行
+
+* 设备有2路IO，可以配置为IO输出，输出电平为3.3V
+  支持电平序列对，最多10对
 
 IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接不再生效
 
 <table>
     <tr>
         <td rowspan="2">AT+IOOUT<n></td>    
-    	 <td>AT+IOOUT<n>=<level_0>,<duration_0>,<level_1>,<duration1>,...<level_n>,<duration_n> 设置引脚输出策略，duration单位为ms，0表示永远<br>TOGLE 表示取反（优先级2）</td> 
+    	 <td>AT+IOOUT<n>=&ltlevel_0&gt,&ltduration_0>,&ltlevel_1>,&ltduration1>,...&ltlevel_n>,&ltduration_n> 设置引脚输出策略，duration单位为ms，0表示永远<br>TOGLE 表示取反（优先级2）</td> 
     </tr>
     <tr>
-        <td>AT+IOOUT<n>? <br><level_0>,<duration_0>,<level_1>,<duration1>,...<level_n>,<duration_n><br>D 表示未启用</td> 
+        <td>AT+IOOUT1<n>? <br>+IOOUT&ltn&gt=&ltlevel_0&gt,&ltduration_0&gt,&ltlevel_1&gt,&ltduration1&gt,...&ltlevel_n&gt,&ltduration_n&gt<br>+IOOUT&ltn&gt=D 表示未启用</td> 
     </tr>
 </table>
+
 
 
 
@@ -1168,6 +1212,7 @@ IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接�
 AT+IOOUT1?
 +IOOUT1=D
 
+
 AT+IOOUT1=0,200,1,200,0,500,1,500
 OK
 
@@ -1178,8 +1223,6 @@ AT+IOOUT2?
 +IOOUT2=D
 
 #设置IO2位OUT模式，在每个Loop中，输出高电平5000ms，后续持续输出低电平
-AT+IOOUT2=1,5000,0,0
-+IOOUT2=OK
 AT+IOOUT2=1,5000,0,0
 +IOOUT2=OK
 
@@ -1202,12 +1245,13 @@ IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接�
 <table>
     <tr>
         <td rowspan="2">AT+IOIN<n></td>    
-    	 <td>AT+IOIN<n>=<mode> mode可以为<br>TOGLE 双边沿跳变<br>RISING 上升沿跳变<br>FAILING 下降沿跳变<br>返回值  +IOIN<n>=<mode>,<value></td> 
+    	 <td>AT+IOIN<n>=<mode> mode可以为<br>BOTH 双边沿跳变<br>RISING 上升沿跳变<br>FAILING 下降沿跳变<br>返回值  +IOIN&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
     </tr>
     <tr>
-        <td>AT+IOIN<n>? <br>+IOIN<n>=<mode><br>TOGLE,RISING,FAILING 三种工作模式，D 表示未启用</td> 
+        <td>AT+IOIN<n>? <br>+IOIN&ltn&gt=&ltmode&gt<br>BOTH,RISING,FAILING 三种工作模式，D 表示未启用</td> 
     </tr>
 </table>
+
 
 举例
 
@@ -1277,12 +1321,13 @@ IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接�
 <table>
     <tr>
         <td rowspan="2">AT+IOCNT<n></td>
-    	 <td>AT+IOCNT<n>=<mode> mode可以为<br>BOTH 双边沿跳变<br>RISING 上升沿跳变<br>FAILING 下降沿跳变 D 禁用<br>返回值  +IOCNT<n>=<mode>,<value></td> 
+    	 <td>AT+IOCNT&ltn&gt=&ltmode&gt mode可以为<br>BOTH 双边沿跳变<br>RISING 上升沿跳变<br>FAILING 下降沿跳变 D 禁用<br>返回值  +IOCNT&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
     </tr>
     <tr>
         <td>AT+IOCNT<n>? <br>+IOCNT<n>=<mode><br>BOTH,RISING,FAILING 三种触发方式，D 表示未启用</td> 
     </tr>
 </table>
+
 
 
 
@@ -1367,21 +1412,24 @@ AT+LOOP?
 ### 9. 电池电量
 
 电量范围为0-100%
-每次跳20%：100 80 60
+最小步进：20% 
+
+可能的返回值：100%  80% 60% 40% 20% 0%
 
 <table>
     <tr>
         <td>AT+BATTERY</td>    
-    	<td>AT+BATTERY? 查询电池电量<br>+BATTERY:99% 返回电池电量百分比</td> 
+    	<td>AT+BATTERY? 查询电池电量<br>+BATTERY:100% 返回电池电量百分比</td> 
     </tr>
 </table>
+
 
 
 举例
 
 ```
 AT+BATTERY?
-+BATTERY=90%
++BATTERY=80%
 ```
 
 ---------------------
@@ -1486,13 +1534,15 @@ AT+RS485NBTRIALS?
 
 <table>
     <tr>
-        <td rowspan="2">AT+RS485ITEM&ltn&gt</td>    
-    	 <td>AT+RS485ITEM&ltn&gt=&ltdata&gt,&lttimeout&gt,,&ltbyteorder&gt n的范围为0-7  <br>data为16进制字符串<br>delay单位为ms,表示这条命令的最大等待回复时间<br>startreg，开始读取的寄存器地址<br>length，读取的数据长度<br>byteorder为字节序，目前支持AB，BA,ABCD字节序</td> 
+        <td rowspan="2">AT+RS485ITEM=&ltn&gt</td>    
+    	 <td>AT+RS485ITEM=&ltn&gt,&ltdata&gt,&lttimeout&gt,&ltbyteorder&gt n的范围为0-7  <br>data为16进制字符串<br>timeout单位为ms,表示这条命令的最大等待回复时间<br>byteorder为字节序，目前支持AB，BA,ABCD字节序<br>AT+RS485ITEM=&ltn&gt,TEST 测试第n条485指令，返回+RS485ITEM=0,&ltdata&gt</td> 
     </tr>
     <tr>
-        <td>AT+RS485ITEM&ltn&gt? <br>+RS485ITEM&ltn&gt=&ltdata&gt,&lttimeout&gt,&ltbyteorder&gt 已经配置 <br>+RS485ITEM&ltn&gt=NULL 没有配置</td> 
+        <td>AT+RS485ITEM=&ltn&gt? <br>+RS485ITEM=&ltn&gt,&ltdata&gt,&lttimeout&gt,&ltbyteorder&gt 已经配置 <br>+RS485ITEM=&ltn&gt,NULL 没有配置</td> 
     </tr>
 </table>
+
+
 
 
 
@@ -1500,14 +1550,23 @@ AT+RS485NBTRIALS?
 举例
 
 ```
-AT+RS485ITEM0?
-+RS485ITEM0=445532244, 300, BA
+AT+RS485ITEM=0?
++RS485ITEM=0,500300340001C845,0,2,1,ABCD
 
-AT+RS485ITEM1=445532244, 300, AB
-+RS485ITEM1=OK
+AT+RS485ITEM=1,500300340001C845,0,2,1,ABCD
++RS485ITEM=1,OK
 
-AT+RS485ITEM1?
-+RS485ITEM1=445532244, 300, AB
+AT+RS485ITEM=2?
++RS485ITEM=2,NULL
+
+AT+RS485ITEM=1,NULL
++RS485ITEM=1,OK
+
+AT+RS485ITEM=0,TEST
++RS485ITEM=0,11224411
+
+AT+RS485ITEM?(第二优先级)
++RS485ITEM=[0,500300340001C845,0,2,1,ABCD],[NULL],[NULL],[NULL],[NULL],[NULL],[NULL],[NULL]
 ```
 
 
@@ -1537,14 +1596,14 @@ AT+RS485ITEM1?
 ### 2. IOCNT段共9字节
 | IOCNT mask (1 byte) | 数据小端字节序(4 + 4byte)|
 | ------------------ | -------------------- |
-| IOCNT（0） bit0      | 2 bytes               |
-| IOCNT（1） bit1      | 2 bytes               |
+| IOCNT（0） bit0      | 4 bytes               |
+| IOCNT（1） bit1      | 4 bytes               |
 
 ### 3. INOUT段共2字节
 | INOUT mask (1 byte) | 数据小端字节序(1 byte)   |
 | ------------------ | --------------- |
-| IN bit(0-3)      | 1/2 bytes (0-3)              |
-| OUT bit(4-7)     | 1/2 bytes (4-7)              |
+| IN bit(0-3 bits) | 1/2 bytes (0-3 bits)         |
+| OUT bit(4-7 bits) | 1/2 bytes (4-7 btis)       |
 
 ### 4. RS485（最多8条命令）
 | channel mask（1 byte） | 配置 | 返回数据    |
