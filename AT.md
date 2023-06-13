@@ -459,7 +459,7 @@ AT+NETID=020304
 举例
 
 ```
-AT+JOIN=1
+AT+JOIN=1   #发起一次入网请求
 +JOIN=OK
 AT+JOIN?
 +JOIN=1  #已经入网
