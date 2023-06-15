@@ -1237,7 +1237,7 @@ AT+IOOUT1?
 
 ### 6. IOIN引脚输入策略
 
-设置为BOTH，RISING，FAILING三种触发策略，当条件触发后，串口返回消息，同时将数据上传到lorawan（AT 端口）
+设置为BOTH，RISING，FAILING三种触发策略，当条件触发后，USB串口返回消息（调试模式下），同时将数据上传到lorawan（AT 端口）
 设置为PULLDOWN，PULLUP两种静态策略，在每个LOOP中，上发引脚电平
 
 IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接不再生效
@@ -1314,14 +1314,14 @@ AT+IOIN2?
 
 ### 7. IOCNT引脚计数策略
 
-设置为BOTH，RISING，FAILING三种触发策略，当条件触发后，串口返回消息，在大循环中将计数值上发到lorawan
+设置为BOTH，RISING，FAILING三种触发策略，当条件触发后，串口返回消息（调试模式下），在大循环中将计数值上发到lorawan
 
 IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接不再生效
 
 <table>
     <tr>
         <td rowspan="2">AT+IOCNT<n></td>
-    	 <td>AT+IOCNT&ltn&gt=&ltmode&gt mode可以为<br>BOTH 双边沿跳变<br>RISING 上升沿跳变<br>FAILING 下降沿跳变 D 禁用<br>返回值  +IOCNT&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
+    	 <td>AT+IOCNT&ltn&gt=&ltmode&gt,&ltcnt&gt mode可以为<br>BOTH 双边沿跳变<br>RISING 上升沿跳变<br>FAILING 下降沿跳变 D 禁用<br>cnt表示初始计数值<br>返回值  +IOCNT&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
     </tr>
     <tr>
         <td>AT+IOCNT<n>? <br>+IOCNT<n>=<mode><br>BOTH,RISING,FAILING 三种触发方式，D 表示未启用</td> 
@@ -1340,10 +1340,10 @@ AT+IOCNT1?
 +IOCNT1=D
 
 
-#设置IOCNT1为下降沿触发，当被触发后，返回+IOIN1=FAILING,<cnt> 到串口
-AT+IOCNT1=FAILING
+#设置IOCNT1为下降沿触发，初始计数值为0，当被触发后，返回+IOIN1=FAILING,<cnt> 到串口
+AT+IOCNT1=FAILING,0
 +IOCNT1=OK
-
+            
 +IOCNT1=FAILING,T,1
 +IOCNT1=FAILING,T,2
 +IOCNT1=FAILING,T,3
