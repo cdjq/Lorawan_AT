@@ -982,7 +982,7 @@ AT+TEXTTYPE?
 
 ### 26. 接收数据（优先级2）
 
-Lorawan接收的数据转发到串口
+串口处于AT模式下,Lorawan接收的数据转发到串口. 串口处于透传模式下不,只把Data下发到串口
 格式为+RECV:U(C):D(E):Port:RSSI:SNR:Data
 
 
@@ -1214,7 +1214,7 @@ AT+IOOUT1?
 
 
 AT+IOOUT1=0,200,1,200,0,500,1,500
-OK
++IOOUT1=OK
 
 AT+IOOUT1?
 +IOOUT1=0,200,1,200,0,500,1,500
@@ -1237,7 +1237,7 @@ AT+IOOUT1?
 
 ### 6. IOIN引脚输入策略
 
-设置为BOTH，RISING，FAILING三种触发策略，当条件触发后，USB串口返回消息（调试模式下），同时将数据上传到lorawan（AT 端口）
+设置为BOTH，RISING，FALLING三种触发策略，当条件触发后，USB串口返回消息（AT模式，调试模式打开），同时将数据上传到lorawan（AT 端口）
 设置为PULLDOWN，PULLUP两种静态策略，在每个LOOP中，上发引脚电平
 
 IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接不再生效
@@ -1245,10 +1245,10 @@ IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接�
 <table>
     <tr>
         <td rowspan="2">AT+IOIN<n></td>    
-    	 <td>AT+IOIN<n>=<mode> mode可以为<br>BOTH 双边沿跳变<br>RISING 上升沿跳变<br>FAILING 下降沿跳变<br>返回值  +IOIN&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
+    	 <td>AT+IOIN<n>=<mode> mode可以为<br>BOTH 双边沿跳变<br>RISING 上升沿跳变<br>FALLING 下降沿跳变<br>返回值  +IOIN&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
     </tr>
     <tr>
-        <td>AT+IOIN<n>? <br>+IOIN&ltn&gt=&ltmode&gt<br>BOTH,RISING,FAILING 三种工作模式，D 表示未启用</td> 
+        <td>AT+IOIN<n>? <br>+IOIN&ltn&gt=&ltmode&gt<br>BOTH,RISING,FALLING 三种工作模式，D 表示未启用</td> 
     </tr>
 </table>
 
@@ -1274,20 +1274,20 @@ AT+IOIN2=PULLDOWN
 AT+IOIN2?
 AT+IOIN2=PULLDOWN,1
 
-#设置IOIN1为下降沿触发，当被触发后，返回+IOIN1=FAILING,0 给串口和lorawan AT端口
-AT+IOIN1=FAILING
+#设置IOIN1为下降沿触发，当被触发后，返回+IOIN1=FALLING,0 发给串口（AT模式，调试模式打开）和lorawan AT端口
+AT+IOIN1=FALLING
 +IOIN1=OK
 
-+IOIN1=FAILING,T,0
-+IOIN1=FAILING,T,0
-+IOIN1=FAILING,T,0
++IOIN1=FALLING,T,0
++IOIN1=FALLING,T,0
++IOIN1=FALLING,T,0
 
 AT+IOIN1?
-+IOIN1=FAILING,0
++IOIN1=FALLING,0
 
-#设置IOIN2为上升沿触发，当被触发后，返回+IOIN2=RISING,1 给串口和lorawan AT端口
+#设置IOIN2为上升沿触发，当被触发后，返回+IOIN2=RISING,1 发给串口（AT模式，调试模式打开）和lorawan AT端口
 AT+IOIN2=RISING
-OK
++IOIN2,OK
 
 +IOIN2=RISING,T,1
 +IOIN2=RISING,T,1
@@ -1296,7 +1296,7 @@ OK
 AT+IOIN2?
 +IOIN2=RISING,1
 
-#设置IOIN2为双边沿沿触发，当被触发后，返回+IOIN2=BOTH,1 给串口和lorawan AT端口
+#设置IOIN2为双边沿沿触发，当被触发后，返回+IOIN2=BOTH,1 给串口（AT模式，调试模式打开）和lorawan AT端口
 AT+IOIN2=BOTH
 +IOIN2=OK
 
@@ -1314,24 +1314,20 @@ AT+IOIN2?
 
 ### 7. IOCNT引脚计数策略
 
-设置为BOTH，RISING，FAILING三种触发策略，当条件触发后，串口返回消息（调试模式下），在大循环中将计数值上发到lorawan
+设置为BOTH，RISING，FALLING三种触发策略，当条件触发后，串口返回消息（AT模式，调试模式打开），在大循环中将计数值上发到lorawan
 
 IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接不再生效
 
 <table>
     <tr>
         <td rowspan="2">AT+IOCNT<n></td>
-    	 <td>AT+IOCNT&ltn&gt=&ltmode&gt,&ltcnt&gt mode可以为<br>BOTH 双边沿跳变<br>RISING 上升沿跳变<br>FAILING 下降沿跳变 D 禁用<br>cnt表示初始计数值<br>返回值  +IOCNT&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
+    	 <td>AT+IOCNT&ltn&gt=&ltmode&gt,&ltcnt&gt mode可以为<br>BOTH 双边沿跳变<br>RISING 上升沿跳变<br>FALLING 下降沿跳变 D 禁用<br>cnt表示初始计数值<br>返回值  +IOCNT&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
     </tr>
     <tr>
-        <td>AT+IOCNT<n>? <br>+IOCNT<n>=<mode><br>BOTH,RISING,FAILING 三种触发方式，D 表示未启用</td> 
+        <td>AT+IOCNT<n>? <br>+IOCNT<n>=<mode><br>BOTH,RISING,FALLING 三种触发方式，D 表示未启用</td> 
     </tr>
 </table>
 
-
-
-(应该多一个reset的功能， 可以复位计数值)
-(FALLING 拼写错误)
 举例
 
 ```
@@ -1340,19 +1336,19 @@ AT+IOCNT1?
 +IOCNT1=D
 
 
-#设置IOCNT1为下降沿触发，初始计数值为0，当被触发后，返回+IOIN1=FAILING,<cnt> 到串口
-AT+IOCNT1=FAILING,0
+#设置IOCNT1为下降沿触发，初始计数值为0，当被触发后，返回+IOIN1=FALLING,<cnt> 到串口（AT模式，调试模式打开）
+AT+IOCNT1=FALLING,0
 +IOCNT1=OK
             
-+IOCNT1=FAILING,T,1
-+IOCNT1=FAILING,T,2
-+IOCNT1=FAILING,T,3
++IOCNT1=FALLING,T,1
++IOCNT1=FALLING,T,2
++IOCNT1=FALLING,T,3
 
 AT+IOCNT1?
-+IOCNT1=FAILING,3
++IOCNT1=FALLING,3
 
-#设置IOCNT2为上升沿触发，当被触发后，返回+IOIN2=RISING,<cnt> 到串口
-AT+IOCNT2=RISING
+#设置IOCNT2为上升沿触发，当被触发后，返回+IOIN2=RISING,<cnt> 到串口（AT模式，调试模式打开）
+AT+IOCNT2=RISING,0
 +IOCNT2=OK
 
 +IOIN2=RISING,T,1
@@ -1363,8 +1359,8 @@ AT+IOCNT2=RISING
 AT+IOCNT2?
 +IOCNT2=RISING,4
 
-#设置IOIN2为双边沿沿触发，当被触发后，返回+IOIN2=BOTH,<cnt> 给串口
-AT+IOCNT2=BOTH
+#设置IOIN2为双边沿沿触发，当被触发后，返回+IOIN2=BOTH,<cnt> 给串口（AT模式，调试模式打开）
+AT+IOCNT2=BOTH,0
 +IOCNT2=OK
 
 +IOCNT2=BOTH,T,1
@@ -1379,7 +1375,7 @@ AT+IOCNT2?
 
 ### 8. 数据采集通信大循环
 
-设置为BOTH，RISING，FAILING三种触发策略，当条件触发后，串口返回消息，在大循环中将计数值上发到lorawan
+设置为BOTH，RISING，FALLING三种触发策略，当条件触发后，将返回值发送到串口（AT模式，调试模式打开），在大循环中将计数值上发到lorawan
 
 IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接不再生效
 
@@ -1477,8 +1473,35 @@ AT+RECOVERY
 
 --------------------
 
-### 12. 重启（前期不暴露给用户）
+### 12. 配置计数（只对内部开放）
+MCU内部保存一个CFGCNT，NFC内部保存一个CFGCNT
+CFGCNT为一个16 bits（uint16_t） 类型的数据            
+设备重启后，MCU先读取NFC的所有配置，必将双方的CFGCNT
+如果 MCU(CFGCNT) > NFC(CFGCNT)  ， 则将MCU的配置同步到NFC芯片中
+如果 MCU(CFGCNT) < NFC(CFGCNT)  ， 则将NFC芯片的配置同步到MCU中
 
+CFGCNT的范围为0-10000，当MCU发现MCU或NFC的计数值大于等于10000后，将MCU和NFC内部的CFGCNT都清零
+手机配置NFC，每次CFGCNT+1，手机端发现CFGCNT大于等于10000后，不会将其清零
+
+<table>
+    <tr>
+        <td>AT+CFGCNT</td>    
+    	<td>AT+CFGCNT? 查询配置计数 </td> 
+    </tr>
+</table>
+
+
+举例
+
+```
+AT+CFGCNT?
++CFGCNT=20
+```
+--------------------
+
+### 13. 重启
+当发送设备重启指令后，设备配置计数CFGCNT增加1, 然后开启看门狗, 重启MCU
+            
 <table>
     <tr>
         <td>AT+REBOOT</td>    
