@@ -1245,17 +1245,17 @@ AT+IOOUT1?
 ### 6. IOIN引脚输入策略
 
 设置为BOTH，RISING，FALLING三种触发策略，当条件触发后，USB串口返回消息（AT模式，调试模式打开），同时将数据上传到lorawan（AT 端口）
-设置为PULLDOWN，PULLUP两种静态策略，在每个LOOP中，上发引脚电平
+设置为PULLDOWN，PULLUP FLOATING三种静态策略，在每个LOOP中，上发引脚电平
 
 IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接不再生效
 
 <table>
     <tr>
         <td rowspan="2">AT+IOIN<n></td>    
-    	 <td>AT+IOIN<n>=<mode> mode可以为<br>BOTH 双边沿跳变<br>RISING 上升沿跳变<br>FALLING 下降沿跳变<br>返回值  +IOIN&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
+    	 <td>AT+IOIN<n>=<mode> mode可以为<br>BOTH 双边沿跳变<br>RISING 上升沿跳变<br>FALLING 下降沿跳变 <br>FLOATING 浮空输入<br>返回值  +IOIN&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
     </tr>
     <tr>
-        <td>AT+IOIN<n>? <br>+IOIN&ltn&gt=&ltmode&gt<br>BOTH,RISING,FALLING 三种工作模式，D 表示未启用</td> 
+        <td>AT+IOIN<n>? <br>+IOIN&ltn&gt=&ltmode&gt<br>BOTH,RISING,FALLING,FLOATING,PULLUP,PULLDOWN 六种工作模式，D 表示未启用</td> 
     </tr>
 </table>
 
@@ -1273,6 +1273,12 @@ AT+IOIN1=PULLUP
 
 AT+IOIN1?
 +IOIN1=PULLUP,0
+
+AT+IOIN1=FLOATING
++IOIN1=OK
+
+AT+IOIN1?
++IOIN1=FLOATING,0
 
 #设置IOIN2为下拉模式，返回+IOIN1=PULLDOWN,1，表示下拉模式，当前电平为1
 AT+IOIN2=PULLDOWN
