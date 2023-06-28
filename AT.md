@@ -1244,18 +1244,18 @@ AT+IOOUT1?
 
 ### 6. IOIN引脚输入策略
 
-设置为BOTH，RISING，FALLING三种触发策略，当条件触发后，USB串口返回消息（AT模式，调试模式打开），同时将数据上传到lorawan（AT 端口）
-设置为PULLDOWN，PULLUP FLOATING三种静态策略，在每个LOOP中，上发引脚电平
+设置为RISING，FALLING两种触发策略，当条件触发后，USB串口返回消息（AT模式，调试模式打开），同时将数据上传到lorawan（AT 端口）
+设置为FLOATING 静态策略，在每个LOOP中，上发引脚电平
 
 IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接不再生效
 
 <table>
     <tr>
         <td rowspan="2">AT+IOIN<n></td>    
-    	 <td>AT+IOIN<n>=<mode> mode可以为<br>BOTH 双边沿跳变<br>RISING 上升沿跳变<br>FALLING 下降沿跳变 <br>FLOATING 浮空输入<br>返回值  +IOIN&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
+    	 <td>AT+IOIN<n>=<mode> mode可以为<br>RISING 上升沿跳变<br>FALLING 下降沿跳变 <br>FLOATING 浮空输入<br>返回值  +IOIN&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
     </tr>
     <tr>
-        <td>AT+IOIN<n>? <br>+IOIN&ltn&gt=&ltmode&gt<br>BOTH,RISING,FALLING,FLOATING,PULLUP,PULLDOWN 六种工作模式，D 表示未启用</td> 
+        <td>AT+IOIN<n>? <br>+IOIN&ltn&gt=&ltmode&gt<br>RISING,FALLING,FLOATING 三种工作模式，D 表示未启用</td> 
     </tr>
 </table>
 
@@ -1267,25 +1267,19 @@ IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接�
 AT+IOIN1?
 +IOIN1=D
 
-#设置IOIN1为上拉模式，返回+IOIN1=PULLUP,0，表示上拉模式，当前电平为0
-AT+IOIN1=PULLUP
-+IOIN1=OK
-
-AT+IOIN1?
-+IOIN1=PULLUP,0
-
+#设置IOIN1为浮空输入模式，返回+IOIN1=FLOATING,0，表示浮空输入模式，当前电平为0
 AT+IOIN1=FLOATING
 +IOIN1=OK
 
 AT+IOIN1?
 +IOIN1=FLOATING,0
 
-#设置IOIN2为下拉模式，返回+IOIN1=PULLDOWN,1，表示下拉模式，当前电平为1
-AT+IOIN2=PULLDOWN
+#设置IOIN2为浮空模式，返回+IOIN1=FLOATING,1，表示浮空输入模式，当前电平为1
+AT+IOIN2=FLOATING
 +IOIN2=OK
 
 AT+IOIN2?
-AT+IOIN2=PULLDOWN,1
+AT+IOIN2=FLOATING,1
 
 #设置IOIN1为下降沿触发，当被触发后，返回+IOIN1=FALLING,0 发给串口（AT模式，调试模式打开）和lorawan AT端口
 AT+IOIN1=FALLING
@@ -1308,36 +1302,23 @@ AT+IOIN2=RISING
 
 AT+IOIN2?
 +IOIN2=RISING,1
-
-#设置IOIN2为双边沿沿触发，当被触发后，返回+IOIN2=BOTH,1 给串口（AT模式，调试模式打开）和lorawan AT端口
-AT+IOIN2=BOTH
-+IOIN2=OK
-
-+IOIN2=BOTH,T,1
-+IOIN2=BOTH,T,0
-+IOIN2=BOTH,T,1
-+IOIN2=BOTH,T,0
-
-
-AT+IOIN2?
-+IOIN2=BOTH,1
 ```
 
 -----------------------------
 
 ### 7. IOCNT引脚计数策略
 
-设置为BOTH，RISING，FALLING三种触发策略，当条件触发后，串口返回消息（AT模式，调试模式打开），在大循环中将计数值上发到lorawan
+设置为RISING，FALLING两种触发策略，当条件触发后，串口返回消息（AT模式，调试模式打开），在大循环中将计数值上发到lorawan
 
 IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接不再生效
 
 <table>
     <tr>
         <td rowspan="2">AT+IOCNT<n></td>
-    	 <td>AT+IOCNT&ltn&gt=&ltmode&gt,&ltcnt&gt mode可以为<br>BOTH 双边沿跳变<br>RISING 上升沿跳变<br>FALLING 下降沿跳变 D 禁用<br>cnt表示初始计数值<br>返回值  +IOCNT&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
+    	 <td>AT+IOCNT&ltn&gt=&ltmode&gt,&ltcnt&gt mode可以为<br>RISING 上升沿跳变<br>FALLING 下降沿跳变 D 禁用<br>cnt表示初始计数值<br>返回值  +IOCNT&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
     </tr>
     <tr>
-        <td>AT+IOCNT<n>? <br>+IOCNT<n>=<mode><br>BOTH,RISING,FALLING 三种触发方式，D 表示未启用</td> 
+        <td>AT+IOCNT<n>? <br>+IOCNT<n>=<mode><br>RISING,FALLING 两种触发方式，D 表示未启用</td> 
     </tr>
 </table>
 
@@ -1371,17 +1352,6 @@ AT+IOCNT2=RISING,0
 
 AT+IOCNT2?
 +IOCNT2=RISING,4
-
-#设置IOIN2为双边沿沿触发，当被触发后，返回+IOIN2=BOTH,<cnt> 给串口（AT模式，调试模式打开）
-AT+IOCNT2=BOTH,0
-+IOCNT2=OK
-
-+IOCNT2=BOTH,T,1
-+IOCNT2=BOTH,T,2
-+IOCNT2=BOTH,T,3
-
-AT+IOCNT2?
-+IOIN2=BOTH,3
 ```
 
 ---------------------
