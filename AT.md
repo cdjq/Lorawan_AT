@@ -1043,13 +1043,17 @@ AT+RECV=1
 
 设备上有个12V电源和5V电源，可以对外供电，方便用户部署需要较大电压的外设
 
+当前
+channel 0 支持12V
+channel 1 支持5V
+后续可能每个channel支持更多输出电压
 <table>
     <tr>
         <td rowspan="2">AT+OUTPOWER</td>    
-    	 <td>AT+OUTPOWER=<n>? 查询当前设备供电策略</td> 
+    	 <td>AT+OUTPOWER=<n>? 查询当前通道n设备供电策略</td> 
     </tr>
     <tr>
-        <td>AT+OURPOWER=<n>,<12V>,<duration> <br>duration单位为ms，0表示永远供电，-1表示永远不供电</td> 
+        <td>AT+OURPOWER=<n>,<12V>,<duration> <br>n表示通道，duration单位为ms，0表示永远供电，-1表示永远不供电</td> 
     </tr>
 </table>
 
@@ -1081,8 +1085,8 @@ AT+OUTPOWER?
 AT+OUTPOWER=1,5V,0
 +OUTPOWER=1,OK
 
-#12V供电电路从不对外供电
-AT+OUTPOWER=1,12V,-1
+#5V供电电路从不对外供电
+AT+OUTPOWER=1,5V,-1
 +OUTPOWER=1,OK
 ```
 
