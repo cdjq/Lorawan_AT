@@ -1050,10 +1050,10 @@ channel 1 支持5V
 <table>
     <tr>
         <td rowspan="2">AT+OUTPOWER</td>    
-    	 <td>AT+OUTPOWER=<n>? 查询当前通道n设备供电策略</td> 
+    	 <td>AT+OUTPOWER=&ltn&gt? 查询当前通道n设备供电策略</td> 
     </tr>
     <tr>
-        <td>AT+OURPOWER=<n>,<12V>,<duration> <br>n表示通道，duration单位为ms，0表示永远供电，-1表示永远不供电</td> 
+        <td>AT+OURPOWER=&ltn&gt,<12V>,<duration> <br>n表示通道，duration单位为ms，0表示永远供电，-1表示永远不供电</td> 
     </tr>
 </table>
 
