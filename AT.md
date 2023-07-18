@@ -1196,7 +1196,7 @@ AT+ADC2?
 * 设备有2路IO，可以配置为IO输出，输出电平为3.3V
   支持电平序列对，最多10对
 
-IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接不再生效
+IOIN IOCNT是互斥的，设置了其中一种模式，另一种模式直接不再生效
 
 <table>
     <tr>
@@ -1247,7 +1247,7 @@ AT+IOOUT=1?
 设置为RISING，FALLING两种触发策略，当条件触发后，USB串口返回消息（AT模式，调试模式打开），同时将数据上传到lorawan（AT 端口）
 设置为FLOATING 静态策略，在每个LOOP中，上发引脚电平
 
-IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接不再生效
+IOIN IOCNT是互斥的，设置了其中一种模式，另一种模式直接不再生效
 
 <table>
     <tr>
@@ -1310,7 +1310,7 @@ AT+IOIN=2?
 
 设置为RISING，FALLING两种触发策略，当条件触发后，串口返回消息（AT模式，调试模式打开），在大循环中将计数值上发到lorawan
 
-IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接不再生效
+IOIN IOCNT是互斥的，设置了其中一种模式，另一种模式直接不再生效
 
 <table>
     <tr>
