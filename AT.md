@@ -1041,15 +1041,15 @@ AT+RECV=1
 
 ### 1. 对外供电
 
-设备上有个12V电源，可以对外供电，方便用户部署需要较大电压的外设
+设备上有个12V电源和5V电源，可以对外供电，方便用户部署需要较大电压的外设
 
 <table>
     <tr>
-        <td rowspan="2">AT+OUTPOWER0</td>    
-    	 <td>AT+OUTPOWER0? 查询当前设备供电策略</td> 
+        <td rowspan="2">AT+OUTPOWER</td>    
+    	 <td>AT+OUTPOWER=<n>? 查询当前设备供电策略</td> 
     </tr>
     <tr>
-        <td>AT+OURPOWER0=<12V>,<duration> <br>duration单位为ms，0表示永远供电，-1表示永远不供电</td> 
+        <td>AT+OURPOWER=<n>,<12V>,<duration> <br>duration单位为ms，0表示永远供电，-1表示永远不供电</td> 
     </tr>
 </table>
 
@@ -1058,18 +1058,32 @@ AT+RECV=1
 
 ```
 #采集数据前，对外供电12V，供电3000ms，待设备初始化完成后，再采集数据
-AT+OUTPOWER0=12V,3000
-+OUTPOWER0=OK
-AT+OUTPOWER0?
-+OUTPOWER0=12V,3000
+AT+OUTPOWER=0,12V,3000
++OUTPOWER=OK
+AT+OUTPOWER?
++OUTPOWER=0,12V,3000
 
 #12V供电电路一直对外供电
-AT+OUTPOWER0=12V,0
-+OUTPOWER0=OK
+AT+OUTPOWER=0,12V,0
++OUTPOWER=0,OK
 
 #12V供电电路从不对外供电
-AT+OUTPOWER1=12V,-1
-+OUTPOWER0=OK
+AT+OUTPOWER1=0,12V,-1
++OUTPOWER=0,OK
+
+#采集数据前，对外供电5V，供电3000ms，待设备初始化完成后，再采集数据
+AT+OUTPOWER=1,5V,3000
++OUTPOWER=OK
+AT+OUTPOWER?
++OUTPOWER=1,5V,3000
+
+#5V供电电路一直对外供电
+AT+OUTPOWER=1,5V,0
++OUTPOWER=1,OK
+
+#12V供电电路从不对外供电
+AT+OUTPOWER=1,12V,-1
++OUTPOWER=1,OK
 ```
 
 --------------------
