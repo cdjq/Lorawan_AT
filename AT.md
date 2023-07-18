@@ -1201,10 +1201,10 @@ IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接�
 <table>
     <tr>
         <td rowspan="2">AT+IOOUT<n></td>    
-    	 <td>AT+IOOUT<n>=&ltlevel_0&gt,&ltduration_0>,&ltlevel_1>,&ltduration1>,...&ltlevel_n>,&ltduration_n> 设置引脚输出策略，duration单位为ms，0表示永远<br>TOGLE 表示取反（优先级2）</td> 
+    	 <td>AT+IOOUT=&ltn&gt,&ltlevel_0&gt,&ltduration_0>,&ltlevel_1>,&ltduration1>,...&ltlevel_n>,&ltduration_n> 设置引脚输出策略，duration单位为ms，0表示永远<br>TOGLE 表示取反（优先级2）</td> 
     </tr>
     <tr>
-        <td>AT+IOOUT1<n>? <br>+IOOUT&ltn&gt=&ltlevel_0&gt,&ltduration_0&gt,&ltlevel_1&gt,&ltduration1&gt,...&ltlevel_n&gt,&ltduration_n&gt<br>+IOOUT&ltn&gt=D 表示未启用</td> 
+        <td>AT+IOOUT=&ltn&gt? <br>+IOOUT&ltn&gt=&ltlevel_0&gt,&ltduration_0&gt,&ltlevel_1&gt,&ltduration1&gt,...&ltlevel_n&gt,&ltduration_n&gt<br>+IOOUT&ltn&gt=D 表示未启用</td> 
     </tr>
 </table>
 
@@ -1216,28 +1216,28 @@ IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接�
 ```
 #设置IO1为OUT模式，在每个Loop中，输出低电平200ms，高电平200ms，低电平500ms，高电平500ms
 
-AT+IOOUT1?
-+IOOUT1=D
+AT+IOOUT=1?
++IOOUT=1,D
 
 
-AT+IOOUT1=0,200,1,200,0,500,1,500
-+IOOUT1=OK
+AT+IOOUT=1,0,200,1,200,0,500,1,500
++IOOUT=1,OK
 
-AT+IOOUT1?
-+IOOUT1=0,200,1,200,0,500,1,500
+AT+IOOUT=1?
++IOOUT=1,0,200,1,200,0,500,1,500
 
-AT+IOOUT2?
-+IOOUT2=D
+AT+IOOUT=2?
++IOOUT=2,D
 
 #设置IO2位OUT模式，在每个Loop中，输出高电平5000ms，后续持续输出低电平
-AT+IOOUT2=1,5000,0,0
-+IOOUT2=OK
+AT+IOOUT=2,1,5000,0,0
++IOOUT=2,OK
 
 #设置IO1为OUT模式，在每个Loop中，对IO1输出电平取反(优先级2)
-AT+IOOUT1=TOGLE
-+IOOUT1=OK
-AT+IOOUT1?
-+IOOUT1=TOGLE
+AT+IOOUT=1,TOGLE
++IOOUT=1,OK
+AT+IOOUT=1?
++IOOUT=1,TOGLE
 ```
 
 -----------------------
@@ -1251,11 +1251,11 @@ IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接�
 
 <table>
     <tr>
-        <td rowspan="2">AT+IOIN<n></td>    
-    	 <td>AT+IOIN<n>=<mode> mode可以为<br>RISING 上升沿跳变<br>FALLING 下降沿跳变 <br>FLOATING 浮空输入<br>返回值  +IOIN&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
+        <td rowspan="2">AT+IOIN</td>    
+    	 <td>AT+IOIN=<n>,<mode> mode可以为<br>RISING 上升沿跳变<br>FALLING 下降沿跳变 <br>FLOATING 浮空输入<br>返回值  +IOIN&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
     </tr>
     <tr>
-        <td>AT+IOIN<n>? <br>+IOIN&ltn&gt=&ltmode&gt<br>RISING,FALLING,FLOATING 三种工作模式，D 表示未启用</td> 
+        <td>AT+IOIN=<n>? <br>+IOIN=&ltn&gt,&ltmode&gt<br>RISING,FALLING,FLOATING 三种工作模式，D 表示未启用</td> 
     </tr>
 </table>
 
@@ -1264,44 +1264,44 @@ IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接�
 
 ```
 #查询IOIN1模式，返回D，表示IOIN1未启用
-AT+IOIN1?
-+IOIN1=D
+AT+IOIN=1?
++IOIN=1,D
 
-#设置IOIN1为浮空输入模式，返回+IOIN1=FLOATING,0，表示浮空输入模式，当前电平为0
-AT+IOIN1=FLOATING
-+IOIN1=OK
+#设置IOIN1为浮空输入模式，返回+IOIN1,FLOATING,0，表示浮空输入模式，当前电平为0
+AT+IOIN=1,FLOATING
++IOIN=1,OK
 
-AT+IOIN1?
-+IOIN1=FLOATING,0
+AT+IOIN=1?
++IOIN=1,FLOATING,0
 
-#设置IOIN2为浮空模式，返回+IOIN1=FLOATING,1，表示浮空输入模式，当前电平为1
-AT+IOIN2=FLOATING
-+IOIN2=OK
+#设置IOIN2为浮空模式，返回+IOIN=1,FLOATING,1，表示浮空输入模式，当前电平为1
+AT+IOIN=2,FLOATING
++IOIN=2,OK
 
-AT+IOIN2?
-AT+IOIN2=FLOATING,1
+AT+IOIN=2?
+AT+IOIN=2,FLOATING,1
 
 #设置IOIN1为下降沿触发，当被触发后，返回+IOIN1=FALLING,0 发给串口（AT模式，调试模式打开）和lorawan AT端口
-AT+IOIN1=FALLING
-+IOIN1=OK
+AT+IOIN=1,FALLING
++IOIN=1,OK
 
-+IOIN1=FALLING,T,0
-+IOIN1=FALLING,T,0
-+IOIN1=FALLING,T,0
++IOIN=1,FALLING,T,0
++IOIN=1,FALLING,T,0
++IOIN=1,FALLING,T,0
 
-AT+IOIN1?
-+IOIN1=FALLING,0
+AT+IOIN=1?
++IOIN=1,FALLING,0
 
 #设置IOIN2为上升沿触发，当被触发后，返回+IOIN2=RISING,1 发给串口（AT模式，调试模式打开）和lorawan AT端口
-AT+IOIN2=RISING
-+IOIN2,OK
+AT+IOIN=2,RISING
++IOIN=2,OK
 
-+IOIN2=RISING,T,1
-+IOIN2=RISING,T,1
-+IOIN2=RISING,T,1
++IOIN=2,RISING,T,1
++IOIN=2,RISING,T,1
++IOIN=2,RISING,T,1
 
-AT+IOIN2?
-+IOIN2=RISING,1
+AT+IOIN=2?
++IOIN=2,RISING,1
 ```
 
 -----------------------------
@@ -1314,11 +1314,11 @@ IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接�
 
 <table>
     <tr>
-        <td rowspan="2">AT+IOCNT<n></td>
-    	 <td>AT+IOCNT&ltn&gt=&ltmode&gt,&ltcnt&gt mode可以为<br>RISING 上升沿跳变<br>FALLING 下降沿跳变 D 禁用<br>cnt表示初始计数值<br>返回值  +IOCNT&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
+        <td rowspan="2">AT+IOCNT</td>
+    	 <td>AT+IOCNT=&ltn&gt,&ltmode&gt,&ltcnt&gt mode可以为<br>RISING 上升沿跳变<br>FALLING 下降沿跳变 D 禁用<br>cnt表示初始计数值<br>返回值  +IOCNT&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
     </tr>
     <tr>
-        <td>AT+IOCNT<n>? <br>+IOCNT<n>=<mode><br>RISING,FALLING 两种触发方式，D 表示未启用</td> 
+        <td>AT+IOCNT=&ltn&gt? <br>+IOCNT<n>=<mode><br>RISING,FALLING 两种触发方式，D 表示未启用</td> 
     </tr>
 </table>
 
@@ -1326,32 +1326,32 @@ IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另外两种直接�
 
 ```
 #查询IOCNT1模式，返回D，表示IOCNT1未启用
-AT+IOCNT1?
-+IOCNT1=D
+AT+IOCNT=1?
++IOCNT=1,D
 
 
 #设置IOCNT1为下降沿触发，初始计数值为0，当被触发后，返回+IOIN1=FALLING,<cnt> 到串口（AT模式，调试模式打开）
-AT+IOCNT1=FALLING,0
-+IOCNT1=OK
+AT+IOCNT=1,FALLING,0
++IOCNT=1,OK
             
-+IOCNT1=FALLING,T,1
-+IOCNT1=FALLING,T,2
-+IOCNT1=FALLING,T,3
++IOCNT=1,FALLING,T,1
++IOCNT=1,FALLING,T,2
++IOCNT=1,FALLING,T,3
 
-AT+IOCNT1?
-+IOCNT1=FALLING,3
+AT+IOCNT=1?
++IOCNT=1,FALLING,3
 
 #设置IOCNT2为上升沿触发，当被触发后，返回+IOIN2=RISING,<cnt> 到串口（AT模式，调试模式打开）
-AT+IOCNT2=RISING,0
-+IOCNT2=OK
+AT+IOCNT=2,RISING,0
++IOCNT=2,OK
 
-+IOIN2=RISING,T,1
-+IOIN2=RISING,T,2
-+IOIN2=RISING,T,3
-+IOIN2=RISING,T,4
++IOIN=2,RISING,T,1
++IOIN=2,RISING,T,2
++IOIN=2,RISING,T,3
++IOIN=2,RISING,T,4
 
-AT+IOCNT2?
-+IOCNT2=RISING,4
+AT+IOCNT=2?
++IOCNT=2,RISING,4
 ```
 
 ---------------------
