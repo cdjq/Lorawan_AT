@@ -1336,7 +1336,7 @@ AT+IOIN=2?
     	 <td>AT+IOCNT=&ltn&gt,&ltmode&gt,&ltcnt&gt mode可以为<br>RISING 上升沿跳变<br>FALLING 下降沿跳变 D 禁用<br>cnt表示初始计数值<br>返回值  +IOCNT&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
     </tr>
     <tr>
-        <td>AT+IOCNT=&ltn&gt? <br>+IOCNT<n>=<mode><br>RISING,FALLING 两种触发方式，D 表示未启用</td> 
+        <td>AT+IOCNT=&ltn&gt? <br>+IOCNT=&ltn&gt,&ltmode&gt<br>RISING,FALLING 两种触发方式，D 表示未启用</td> 
     </tr>
 </table>
 
@@ -1348,7 +1348,7 @@ AT+IOCNT=1?
 +IOCNT=1,D
 
 
-#设置IOCNT1为下降沿触发，初始计数值为0，当被触发后，返回+IOIN1=FALLING,<cnt> 到串口（AT模式，调试模式打开）
+#设置IOCNT1为下降沿触发，初始计数值为0，当被触发后，返回+IOIN=1,FALLING,<cnt> 到串口（AT模式，调试模式打开）
 AT+IOCNT=1,FALLING,0
 +IOCNT=1,OK
             
@@ -1359,7 +1359,7 @@ AT+IOCNT=1,FALLING,0
 AT+IOCNT=1?
 +IOCNT=1,FALLING,3
 
-#设置IOCNT2为上升沿触发，当被触发后，返回+IOIN2=RISING,<cnt> 到串口（AT模式，调试模式打开）
+#设置IOCNT2为上升沿触发，当被触发后，返回+IOIN=2,RISING,<cnt> 到串口（AT模式，调试模式打开）
 AT+IOCNT=2,RISING,0
 +IOCNT=2,OK
 
