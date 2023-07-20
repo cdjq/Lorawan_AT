@@ -1161,7 +1161,7 @@ AT+BAUD?
 <table>
     <tr>
         <td rowspan="2">AT+ADC</td>    
-    	 <td>AT+ADC=&ltn&gt,U,min,max 读取ADC channnel <n>的电压值，0被映射到min,4095被映射到max<br>+ADC=<n>,<value> <br>AT+ADC=<n>,I,min,max 读取ADC<n>电流模式的值<br>AT+ADC=<n>,D 禁用ADC<n></td> 
+    	 <td>AT+ADC=&ltn&gt,U,min,max 读取ADC channnel <n>的电压值(单位为mV)，0被映射到min,4095被映射到max<br>+ADC=<n>,<value> <br>AT+ADC=<n>,I,min,max 读取ADC<n>采集的电流值(单位为mA)<br>AT+ADC=<n>,D 禁用ADC<n></td> 
     </tr>
     <tr>
         <td>AT+ADC=<n>? <br>D 表示未启用，I表示采集电流, U表示采集电压, 只返回正数，单位由用户自己添加</td> 
@@ -1171,7 +1171,7 @@ AT+BAUD?
 举例
 
 ```
-#采集ADC1通道，以电压模式采集，映射到0-5000，同时将ADC1通道配置到Lora上传数据包中
+#采集ADC1通道，以电压模式采集，映射到0V 到5V，同时将ADC1通道配置到Lora上传数据包中
 AT+ADC=1,U,0,5000
 +ADC=1,OK
 
@@ -1179,7 +1179,14 @@ AT+ADC=1?
 +ADC=1,U,1432
 
 
-#采集ADC2通道，以电流模式采集，映射到4-20同时将ADC2通道配置到Lora上传数据包中
+#采集ADC1通道，以电压模式采集，映射到-12V 到12V，同时将ADC1通道配置到Lora上传数据包中
+AT+ADC=1,U,-12000,12000
++ADC=1,OK
+
+AT+ADC=1?
++ADC=1,U,-1432
+
+#采集ADC2通道，以电流模式采集，映射到4mA 到 20mA 同时将ADC2通道配置到Lora上传数据包中
 AT+ADC=2,I,4,20
 +ADC=2,OK
 
