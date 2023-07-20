@@ -1263,9 +1263,9 @@ AT+IOOUT=1?
 ### 6. IOIN引脚输入策略
 
 设置为RISING，FALLING两种触发策略，当条件触发后，USB串口返回消息（AT模式，调试模式打开），同时将数据上传到lorawan（AT 端口）
-设置为FLOATING 静态策略，在每个LOOP中，上发引脚电平
-当前DTU支持4路IOIN，编号分别是1,2,3,4
-IOIN IOCNT是互斥的，设置了其中一种模式，另一种模式直接不再生效
+* 设置为FLOATING 静态策略，在每个LOOP中，上发引脚电平
+* 当前DTU支持4路IOIN，编号分别是1,2,3,4
+* IOIN IOCNT是互斥的，设置了其中一种模式，另一种模式直接不再生效
 
 <table>
     <tr>
@@ -1327,8 +1327,8 @@ AT+IOIN=2?
 ### 7. IOCNT引脚计数策略
 
 设置为RISING，FALLING两种触发策略，当条件触发后，串口返回消息（AT模式，调试模式打开），在大循环中将计数值上发到lorawan
-当前DTU支持4路IOCNT，编号分别是1,2,3,4
-IOIN IOCNT是互斥的，设置了其中一种模式，另一种模式直接不再生效
+* 当前DTU支持4路IOCNT，编号分别是1,2,3,4
+* IOIN IOCNT是互斥的，设置了其中一种模式，另一种模式直接不再生效
 
 <table>
     <tr>
