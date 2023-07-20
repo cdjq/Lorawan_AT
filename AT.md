@@ -1160,48 +1160,48 @@ AT+BAUD?
 
 <table>
     <tr>
-        <td rowspan="2">AT+ADC<n></td>    
-    	 <td>AT+ADC<n>=V 读取ADC<n>电压模式的值<br>+ADC<n>=<value> <br>AT+ADC<n>=I 读取ADC<n>电流模式的值<br>AT+ADC<n>=D 禁用ADC<n></td> 
+        <td rowspan="2">AT+ADC</td>    
+    	 <td>AT+ADC=&ltn&gt,U,min,max 读取ADC channnel <n>的电压值，0被映射到min,4095被映射到max<br>+ADC=<n>,<value> <br>AT+ADC=<n>,I,min,max 读取ADC<n>电流模式的值<br>AT+ADC=<n>,D 禁用ADC<n></td> 
     </tr>
     <tr>
-        <td>AT+ADC<n>? <br>D 表示未启用，I表示采集电流，V表示采集电压</td> 
+        <td>AT+ADC=<n>? <br>D 表示未启用，I表示采集电流, U表示采集电压, 只返回正数，单位由用户自己添加</td> 
     </tr>
 </table>
 
 举例
 
 ```
-#采集ADC1通道，以电压模式采集，同时将ADC1通道配置到Lora上传数据包中
-AT+ADC1=V
-+ADC1=OK
+#采集ADC1通道，以电压模式采集，映射到0-5000，同时将ADC1通道配置到Lora上传数据包中
+AT+ADC=1,U,0,5000
++ADC=1,OK
 
-AT+ADC1?
-+ADC1=V,1432
-
-
-#采集ADC2通道，以电流模式采集，同时将ADC2通道配置到Lora上传数据包中
-AT+ADC2=I
-+ADC2=OK
+AT+ADC=1?
++ADC=1,U,1432
 
 
-AT+ADC2?
-+ADC2=I,453
+#采集ADC2通道，以电流模式采集，映射到4-20同时将ADC2通道配置到Lora上传数据包中
+AT+ADC=2,I,4,20
++ADC=2,OK
+
+
+AT+ADC=2?
++ADC=2,I,13
 
 #禁止采集ADC1通道，同时将ADC1通道从Lora上传数据包中屏蔽
-AT+ADC1=D
-+ADC1=OK
+AT+ADC=1,D
++ADC=1,OK
 
 
-AT+ADC1?
-+ADC1=D
+AT+ADC=1?
++ADC=1,D
 
 #禁止采集ADC2通道，同时将ADC1通道从Lora上传数据包中屏蔽
 #禁用ADC2采集
-AT+ADC2=D
-+ADC2=OK
+AT+ADC=2,D
++ADC=2,OK
 
-AT+ADC2?
-+ADC2=D
+AT+ADC=2?
++ADC=2,D
 ```
 
 
@@ -1214,12 +1214,12 @@ AT+ADC2?
 * 设备有2路IO，可以配置为IO输出，输出电平为3.3V
   支持电平序列对，最多10对
 
-IOIN IOCNT是互斥的，设置了其中一种模式，另一种模式直接不再生效
+IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另两种模式直接不再生效
 
 <table>
     <tr>
         <td rowspan="2">AT+IOOUT<n></td>    
-    	 <td>AT+IOOUT=&ltn&gt,&ltlevel_0&gt,&ltduration_0>,&ltlevel_1>,&ltduration1>,...&ltlevel_n>,&ltduration_n> 设置引脚输出策略，duration单位为ms，0表示永远<br>TOGLE 表示取反（优先级2）</td> 
+    	 <td>AT+IOOUT=&ltn&gt,&ltlevel_0&gt,&ltduration_0>,&ltlevel_1>,&ltduration1>,...&ltlevel_n>,&ltduration_n> 设置引脚输出策略，duration单位为ms，0表示永远<br>TOGLE 表示取反（优先级2） <br>D 禁用</td> 
     </tr>
     <tr>
         <td>AT+IOOUT=&ltn&gt? <br>+IOOUT&ltn&gt=&ltlevel_0&gt,&ltduration_0&gt,&ltlevel_1&gt,&ltduration1&gt,...&ltlevel_n&gt,&ltduration_n&gt<br>+IOOUT&ltn&gt=D 表示未启用</td> 
@@ -1265,12 +1265,12 @@ AT+IOOUT=1?
 设置为RISING，FALLING两种触发策略，当条件触发后，USB串口返回消息（AT模式，调试模式打开），同时将数据上传到lorawan（AT 端口）
 * 设置为FLOATING 静态策略，在每个LOOP中，上发引脚电平
 * 当前DTU支持4路IOIN，编号分别是1,2,3,4
-* IOIN IOCNT是互斥的，设置了其中一种模式，另一种模式直接不再生效
+* IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另两种模式直接不再生效
 
 <table>
     <tr>
         <td rowspan="2">AT+IOIN</td>
-    	 <td>AT+IOIN=&ltn&gt,&ltmode&gt mode可以为<br>RISING 上升沿跳变<br>FALLING 下降沿跳变 <br>FLOATING 浮空输入<br>返回值  +IOIN&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
+    	 <td>AT+IOIN=&ltn&gt,&ltmode&gt mode可以为<br>RISING 上升沿跳变<br>FALLING 下降沿跳变 <br>FLOATING 浮空输入 <br>D 禁用 <br>返回值  +IOIN&ltn&gt=&ltmode&gt,&ltvalue&gt</td> 
     </tr>
     <tr>
         <td>AT+IOIN=&ltn&gt? <br>+IOIN=&ltn&gt,&ltmode&gt<br>RISING,FALLING,FLOATING 三种工作模式，D 表示未启用</td> 
@@ -1328,7 +1328,7 @@ AT+IOIN=2?
 
 设置为RISING，FALLING两种触发策略，当条件触发后，串口返回消息（AT模式，调试模式打开），在大循环中将计数值上发到lorawan
 * 当前DTU支持4路IOCNT，编号分别是1,2,3,4
-* IOIN IOCNT是互斥的，设置了其中一种模式，另一种模式直接不再生效
+* IOIN IOOUT IOCNT是互斥的，设置了其中一种模式，另两种模式直接不再生效
 
 <table>
     <tr>
