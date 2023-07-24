@@ -1,7 +1,13 @@
 # AT指令表
 
-AT质量支持3个通过 TTL-UART、USB-UART、Lorawan Port（20）
-
+AT指令支持3个通道: 
+* TTL-UART
+  收到+++后，进入AT模式; 收到AT+EXIT后，退出AT模式
+* USB-UART
+  默认处于AT模式，不支持切换到其他模式; AT+EXIT无效
+* Lorawan Port（20）
+  默认处于AT模式，不支持切换到其他模式; AT+EXIT无效
+  
 所有AT指令都以\r\n结尾
 
 
