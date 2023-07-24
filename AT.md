@@ -1,11 +1,11 @@
 # AT指令表
 
 AT指令支持3个通道: 
-* TTL-UART
+* TTL-UART<br>
   收到+++后，进入AT模式; 收到AT+EXIT后，退出AT模式
-* USB-UART
+* USB-UART<br>
   默认处于AT模式，不支持切换到其他模式; AT+EXIT无效
-* Lorawan Port（20）
+* Lorawan Port (20) <br>
   默认处于AT模式，不支持切换到其他模式; AT+EXIT无效
   
 所有AT指令都以\r\n结尾
