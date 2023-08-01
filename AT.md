@@ -173,6 +173,28 @@ AT+SN=FFEE123AB455CCDD
 ```
 
 
+### 6. MAC版本
+只可查询，不可写入
+
+<table>
+    <tr>
+        <td>AT+MAC</td>    
+    	 <td>AT+MAC? 查询MAC版本<br>+MAC=&ltsn&gt</td> 
+    </tr>
+</table>
+
+
+
+举例
+
+```
+AT+MAC?
++MAC=V1.0.3
+AT+MAC=V1.0.4
++MAC=FAIL
+```
+
+
 
 
 
