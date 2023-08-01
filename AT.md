@@ -179,7 +179,7 @@ AT+SN=FFEE123AB455CCDD
 <table>
     <tr>
         <td>AT+MAC</td>    
-    	 <td>AT+MAC? 查询MAC版本<br>+MAC=&ltsn&gt</td> 
+    	 <td>AT+MAC? 查询MAC版本<br>+MAC=&ltmac version&gt</td> 
     </tr>
 </table>
 
