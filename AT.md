@@ -1092,11 +1092,36 @@ AT+RECV=1
 +RECV=U:E:2:-38:6:CRC_ERR
 #接收到UNCONFIRMED包，端口为2，RSSI为-38，SNR为6，包出现CRC_ERR
 ```
+--------------------
 
+### 28. 厂商ID
+
+每个厂商都有自己的厂商ID，长度为2 bytes<br>
+当前我们还没有申请，先用666(029A)
+
+<table>
+    <tr>
+        <td rowspan="2">AT+VID</td>    
+    	 <td>AT+VID? 查询当前设备属性ID<br>+VID=35A9</td> 
+    </tr>
+</table>
+
+
+
+
+举例
+
+```
+AT+VID?
++VID=029A
+
+AT+VID=F5B3
++VID=FAIL
+```
 
 --------------------
 
-### 28. 属性ID
+### 29. 设备属性ID
 
 每一类设备有一个属性ID，长度为2 bytes，用户通过属性ID解析payload数据<br>
 DTU设备 Profile ID：0x0001
