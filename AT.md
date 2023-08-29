@@ -1102,7 +1102,7 @@ AT+RECV=1
 <table>
     <tr>
         <td rowspan="2">AT+VID</td>    
-    	 <td>AT+VID? 查询当前设备属性ID<br>+VID=35A9</td> 
+    	 <td>AT+VID? 查询当前设备属性ID<br>+VID=029A</td> 
     </tr>
 </table>
 
