@@ -1093,6 +1093,33 @@ AT+RECV=1
 #接收到UNCONFIRMED包，端口为2，RSSI为-38，SNR为6，包出现CRC_ERR
 ```
 
+
+--------------------
+
+### 28. 属性ID
+
+每一类设备有一个属性ID，长度为2 bytes，用户通过属性ID解析payload数据
+DTU设备 Profile ID：0x0001
+
+<table>
+    <tr>
+        <td rowspan="2">AT+PID</td>    
+    	 <td>AT+PID? 查询当前设备属性ID<br>+PID=35A9</td> 
+    </tr>
+</table>
+
+
+
+
+举例
+
+```
+AT+PID?
++PID=0001
+
+AT+PID=F5B3
++PID=FAIL
+```
 ## 硬件控制
 
 --------------------
