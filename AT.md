@@ -1098,7 +1098,7 @@ AT+RECV=1
 
 ### 28. 属性ID
 
-每一类设备有一个属性ID，长度为2 bytes，用户通过属性ID解析payload数据
+每一类设备有一个属性ID，长度为2 bytes，用户通过属性ID解析payload数据<br>
 DTU设备 Profile ID：0x0001
 
 <table>
