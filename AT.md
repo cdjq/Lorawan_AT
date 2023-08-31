@@ -1635,6 +1635,65 @@ AT+REBOOT
 +REBOOT=OK
 ```
 
+--------------------
+
+### 14. 系统时间戳
+系统时间戳使用UNIX时间戳，分辨率为秒，最大可计时到2038年
+用户没有设置EPOCH的话，这个值永远为0
+
+<table>
+    <tr>
+        <td>AT+UNIXEPOCH</td>    
+    	<td>AT+UNIXEPOCH?  +UNIXEPOCH=<epoch> 获取系统时间戳</td>
+      <td>AT+UNIXEPOCH=<epoch> 设置系统时间戳</td>
+    </tr>
+</table>
+
+
+举例
+
+```
+AT+UNIXEPOCH?
++UNIXEPOCH=3453432
+
+
+AT+UNIXEPOCH=1693469085
++UNIXEPOCH=OK
+
+AT+UNIXEPOCH=-1
++UNIXEPOCH=FAIL
+```
+
+--------------------
+
+### 15. 读取CSV文件(只适用于USB读取CSV文件)
+系统时间戳使用UNIX时间戳，分辨率为秒，最大可计时到2038年
+用户没有设置EPOCH的话，这个值永远为0
+
+<table>
+    <tr>
+        <td>AT+CSV</td>    
+    	<td>AT+CSV?  +CSV=<total_line>,<total_len> 获取CSV文件统计信息</td>
+      <td>AT+CSV=<start_line>,<end_line>? 获取CSV文件内容</td>
+    </tr>
+</table>
+
+
+举例
+
+```
+AT+CSV?
++CSV=100,8560
+
++CSV=0,100
++CSV=X,X,X,,,,X
+Y,YY,YYY,,,Y,Y
+.....
+Y,YY,YYY,,,Y,Y
+```
+
+
+
 -----------------------------------
 
 ## RS485
@@ -1712,11 +1771,6 @@ AT+RS485ITEM?(第二优先级)
 ```
 
 
-```
- AT+UNIXEPOCH?
- 
- AT+CSV?
- ```
 
 
 ## 数据上传格式
