@@ -1678,10 +1678,10 @@ AT+UNIXEPOCH=-1
 <table>
     <tr>
         <td rowspan="2">AT+CSV</td>    
-    	 <td>AT+CSV?  <br>+CSV=<total_line>,<total_len> 获取CSV文件统计信息</td>
+    	 <td>AT+CSV?  <br>+CSV=&gttotal_line&lt,&gttotal_len&lt 获取CSV文件统计信息</td>
     </tr>
     <tr>
-        <td>AT+CSV=<start_line>,<end_line>? <br>获取CSV文件内容</td>
+        <td>AT+CSV=&gtstart_line&lt,&gtend_line&lt? <br>获取CSV文件内容</td>
     </tr>
 </table>
 
