@@ -1637,7 +1637,36 @@ AT+REBOOT
 
 --------------------
 
-### 14. 系统时间戳
+### 15. 外部SPIFlash
+系统时间戳使用UNIX时间戳，分辨率为秒，最大可计时到2038年
+用户没有设置EPOCH的话，这个值永远为0
+
+
+
+<table>
+    <tr>
+        <td rowspan="2">AT+SPIFLASH</td>      
+    	 <td>AT+SPIFLASH?  <br>+SPIFLASH=&ltchip&gt 获取外部SPIFlash型号</td>
+    </tr>
+</table>
+
+
+
+举例
+
+```
+AT+SPIFLASH?
++SPIFLASH=W25Q32JVSIQ
+
+
+AT+SPIFLASH?
++SPIFLASH=NULL
+
+```
+
+--------------------
+
+### 16. 系统时间戳
 系统时间戳使用UNIX时间戳，分辨率为秒，最大可计时到2038年
 用户没有设置EPOCH的话，这个值永远为0
 
@@ -1671,7 +1700,7 @@ AT+UNIXEPOCH=-1
 
 --------------------
 
-### 15. 读取CSV文件(只适用于USB读取CSV文件)
+### 17. 读取CSV文件(只适用于USB读取CSV文件)
 系统内部保存着一个CSV文件，用于记录数据，可以通过AT指令将csv文件导出
 <br>在导出文件时, 数据禁止写入flash;如果正在写入，则等待写入完成后才读取和传输
 
